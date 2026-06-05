@@ -1,4 +1,4 @@
-name: Deploy Website to AWS EC2
+name: Deploy Website and Monitoring to AWS EC2
 
 on:
   push:
@@ -20,18 +20,17 @@ jobs:
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-
-           if [ ! -d "~/my-devops-website" ]; then
-             git clone https://github.com/m67hrtfwg-sys/my-devops-website.git ~/my-devops-website
-           fi
-
-           cd ~/my-devops-website
-
-           git pull origin main
-
-
+          if [ ! -d "~/my-devops-website" ]; then
+            git clone https://github.com/m67hrtfwg-sys/my-devops-website.git ~/my-devops-website
+          fi
+          
+          cd ~/my-devops-website
+          
+          git pull origin main
+         
           sudo docker stop my-nginx-container || true
           sudo docker rm my-nginx-container || true
-          sudo docker run -d --name my-nginx-container -p 8080:80 -v /home/ubuntu/website:/usr/share/nginx/html nginx
-          sudo docker-compose down || true
-          sudo docker-compose up -d 
+          sudo docker run -d --name my-nginx-container -p 80:80 -v $(pwd)/index.html:/usr/share/nginx/html/index.html nginx
+      
+          sudo docker compose down || true
+          sudo docker compose up -d
