@@ -32,4 +32,4 @@ jobs:
 
           sudo docker stop my-nginx-container || true
           sudo docker rm my-nginx-container || true
-          sudo docker run -d --name my-nginx-container -p 80:80 -v /home/ubuntu/website:/usr/share/nginx/html nginx
+          sudo docker run -d --name my-nginx-container -p 8080:80 -v /home/ubuntu/website:/usr/share/nginx/html nginx
