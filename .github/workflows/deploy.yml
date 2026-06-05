@@ -1,38 +1,35 @@
 name: Deploy Website to AWS EC2
 
-on: 
-  push: 
-    branches: 
-      - main 
+on:
+  push:
+    branches:
+      - main
 
-jobs: 
-  deploy: 
+jobs:
+  deploy:
     runs-on: ubuntu-latest
 
-    steps: 
-
+    steps:
     - name: Checkout code
-      uses: action/checkout@v4
+      uses: actions/checkout@v4
 
-    - name: Deploy to EC2 via SSH
-      uses: appleboy/ssh-action@v1.0.3 
-      with: 
+    - name: Copy index.html to Server
+      uses: appleboy/scp-action@v0.1.7
+      with:
         host: ${{ secrets.SERVER_IP }}
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: | 
-          mkdir -p ~/wsbsite
+        source: "index.html"
+        target: "/home/ubuntu/website/"
 
-          cat << 'EOF' > ~/website/index.html 
-          ${{ github.workspace }}/index.html
-          EOF
+    - name: Executing remote ssh commands to deploy
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
 
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" private_key.pem 
-          chmod 600 private_key.pem 
-          scp -o StrictKeyChecking=no -i private_key.pem index.html ubuntu@${{ secrets.SERVER_IP }}:~/website/index.html
-          rm private_key.pem
-
-
-          docker stop my-nginx-container || true 
-          docker rm my-nginx-container || true 
-          docker run -d --name my-nginx-container -p 80:80 -v ~/website:/usr/share/nginx/html nginx
+          sudo docker stop my-nginx-container || true
+          sudo docker rm my-nginx-container || true
+          sudo docker run -d --name my-nginx-container -p 80:80 -v /home/ubuntu/website:/usr/share/nginx/html nginx
