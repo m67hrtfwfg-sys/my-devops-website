@@ -21,10 +21,9 @@ services:
    
   grafana: 
     image: grafana/grafana:latest
-    container_name:grafana
+    container_name: grafana
     restart: unless-stopped
     port: 
       - "3000:3000"
-
-   environment: 
+    environment: 
      - GF_SECURITY_ADMIN_PASSWORD=admin
