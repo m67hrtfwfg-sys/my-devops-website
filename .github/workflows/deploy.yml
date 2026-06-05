@@ -1,0 +1,38 @@
+name: Deploy Website to AWS EC2
+
+on: 
+  push: 
+    branches: 
+      - main 
+
+jobs: 
+  deploy: 
+    runs-on: ubuntu-latest
+
+    steps: 
+
+    - name: Checkout code
+      uses: action/checkout@v4
+
+    - name: Deploy to EC2 via SSH
+      uses: appleboy/ssh-action@v1.0.3 
+      with: 
+        host: ${{ secrets.SERVER_IP }}
+        username: ubuntu
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: | 
+          mkdir -p ~/wsbsite
+
+          cat << 'EOF' > ~/website/index.html 
+          ${{ github.workspace }}/index.html
+          EOF
+
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" private_key.pem 
+          chmod 600 private_key.pem 
+          scp -o StrictKeyChecking=no -i private_key.pem index.html ubuntu@${{ secrets.SERVER_IP }}:~/website/index.html
+          rm private_key.pem
+
+
+          docker stop my-nginx-container || true 
+          docker rm my-nginx-container || true 
+          docker run -d --name my-nginx-container -p 80:80 -v ~/website:/usr/share/nginx/html nginx
