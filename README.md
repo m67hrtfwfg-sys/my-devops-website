@@ -41,11 +41,13 @@ This ecosystem is split into three main layers:
 
 ### Grafana Live Monitoring Dashboard
 *(Tip: Take a high-quality screenshot of your Grafana dashboard showing the graphs and paste it below)*
-![Grafana Dashboard](path/to/your/grafana-screenshot.png)
+![Grafana Dashboard]<img width="1163" height="831" alt="Screenshot 2026-06-07 at 15 35 06" src="https://github.com/user-attachments/assets/07615fdf-ca8e-4dbb-a245-6c9dff0a2973" />
+
 
 ### Real-Time Telegram Downtime Alert
 *(Tip: Take a screenshot of the alert message your bot sent to your Telegram phone/desktop and paste it below)*
-![Telegram Alert](path/to/your/telegram-screenshot.png)
+![Telegram Alert]<img width="571" height="736" alt="Screenshot 2026-06-07 at 15 38 55" src="https://github.com/user-attachments/assets/928c1060-daf4-4459-884d-09e986f1b858" />
+
 
 ---
 
