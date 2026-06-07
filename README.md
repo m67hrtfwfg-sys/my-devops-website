@@ -5,9 +5,33 @@ A production-ready DevOps and Cloud Engineering project featuring automated clou
 ---
 
 ## 🏗️ System Architecture
+## 🏗️ System Architecture
 
-![System Architecture Diagram](https://mermaid.ink/img/pako:eNqFkk1P4zAMhu_Ico6pXCA_Dji0V6S0W6E97GEXRcmkaWsTJ04cSKeI899JU9pSmIELL_b76vGzY9ubvAsCDW6zre9vGbe-vW5vct6mHGrD1Ww0Wf9G_eYFmE3w0mK8H6Yy3rI_Xn_M_vFpPZ9_SgQ_hI70XgW5LgU6Z-jK3b29O7zY-uK4S2M0o3g7tEbeA_YqF8B-N49S4w_L92b-8b598pGZidI7qTzFm_eP3U9G-TAtLw8862F8uD992L7B_rB_e968_rAbU94Cax6hAn9O_3p4enxG_uQZ77n-L-88M7ZJAn0Y69-k-XpE_j4uS2eH3V_8N00f9I6q3uU-O0f7MvW14W6v-E7_WzRfwDUnL_SdqHlG0625u6P_Upo_o-mB_m-g_w0g_jGv)
+`text
+ [ GitHub Actions (CI/CD) ]
+            │
+            ▼ (SSH Deployment)
+ ┌────────────────────────────────────────────────────────┐
+ │ AWS Cloud (eu-north-1 Region)                          │
+ │  └─► Custom VPC & Security Groups                      │
+ │       └─► Ubuntu EC2 Instance                          │
+ │            │                                           │
+ │            ├──► [ Nginx Website Container ] ◄──┐       │
+ │            │                                   │       │
+ │            │      (Probes Uptime)              │       │
+ │            ├──► [ Blackbox Exporter ] ─────────┘       │
+ │            │          ▲                                │
+ │            │          │ (Scrapes Metrics)              │
+ │            ├──► [ Prometheus TSDB ]                    │
+ │            │          ▲                                │
+ │            │          │ (Queries Metrics)              │
+ │            └──► [ Grafana Dashboard ]                  │
+ └───────────────────────┬────────────────────────────────┘
+                         │
+                         ▼ (Triggers Alert Webhook)
+                 [ Telegram Bot API ]
 
+                 
 This ecosystem is split into three main layers:
 1. Infrastructure as Code (IaC): Automated AWS infrastructure provisioning using CloudFormation templates.
 2. Containerized Deployment: Microservices managed and orchestrated using Docker and Docker Compose.
