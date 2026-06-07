@@ -27,3 +27,10 @@ services:
       - "3000:3000"
     environment: 
      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+    restart: unless-stopped
+    ports:
+      - "9115:9115"
