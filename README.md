@@ -31,7 +31,7 @@ A production-ready DevOps and Cloud Engineering project featuring automated clou
                          ▼ (Triggers Alert Webhook)
                  [ Telegram Bot API ]
 
-                 
+```                 
 This ecosystem is split into three main layers:
 1. Infrastructure as Code (IaC): Automated AWS infrastructure provisioning using CloudFormation templates.
 2. Containerized Deployment: Microservices managed and orchestrated using Docker and Docker Compose.
