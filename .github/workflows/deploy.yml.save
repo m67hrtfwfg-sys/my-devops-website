@@ -1,7 +1,0 @@
-name: Deploy Website to AWS EC2
-
-
-on:
-  push: 
-    branches:
-
