@@ -89,6 +89,7 @@ This ecosystem is split into three main layers:
 ├── docker-compose.yml            # Multi-container Docker orchestrator
 └── README.md                     # Project Documentation
 
+```
 ## ⚙️ HOW TO DEPLOY THIS INFRASTRUCTURE
 
 ​ 1. Provision AWS Resources: Deploy the CloudFormation stack using the AWS CLI or Console:
