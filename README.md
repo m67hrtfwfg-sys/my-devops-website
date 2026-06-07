@@ -76,7 +76,7 @@ This ecosystem is split into three main layers:
 
 ## 📦 Project Structure
 
-`text
+```text
 ├── .github/
 │   └── workflows/
 │       └── ci-cd.yml             # CI/CD Pipeline Configuration
