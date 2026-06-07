@@ -1,9 +1,0 @@
-MyEC2instance
-  Type: AWS::EC2::Instance
-  Properties:
-    InstanceType: t3.micro
-    ImageId: ami-0705383d0b3ee1b1c
-    SecerityGroupIds:
-      - !Ref MySecurityGroup 
-    UserData: 
-     
