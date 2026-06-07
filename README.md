@@ -7,7 +7,7 @@ A production-ready DevOps and Cloud Engineering project featuring automated clou
 ## 🏗️ System Architecture
 ## 🏗️ System Architecture
 
-`text
+```text
  [ GitHub Actions (CI/CD) ]
             │
             ▼ (SSH Deployment)
