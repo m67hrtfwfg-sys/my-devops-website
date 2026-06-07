@@ -6,8 +6,46 @@ A production-ready DevOps and Cloud Engineering project featuring automated clou
 
 ## 🏗️ System Architecture
 
-*(Tip: Draw a simple architecture diagram on draw.io showing GitHub Actions -> AWS EC2 -> Docker Compose -> Prometheus/Grafana -> Telegram, export it as an image, and place it here)*
-![Architecture Diagram](path/to/your/architecture-diagram.png)
+`mermaid
+graph TD
+    %% Styling
+    classDef aws fill:#FF9900,stroke:#333,stroke-width:2px,color:black;
+    classDef docker fill:#2496ED,stroke:#333,stroke-width:2px,color:white;
+    classDef git fill:#F05032,stroke:#333,stroke-width:2px,color:white;
+    classDef telegram fill:#0088cc,stroke:#333,stroke-width:2px,color:white;
+
+    subgraph GitHub_Platform [GitHub Ecosystem]
+        A[GitHub Repository] -->|Triggers Pipeline| B[GitHub Actions CI/CD]
+    end
+
+    subgraph AWS_Cloud [AWS Cloud - eu-north-1 Region]
+        subgraph VPC [Custom VPC / Security Groups]
+            subgraph EC2_Instance [Ubuntu EC2 Instance]
+                direction TB
+                C[Docker Engine] --> D[Nginx Website Container]
+                C --> E[Prometheus Container]
+                C --> F[Grafana Container]
+                C --> G[Blackbox Exporter Container]
+            end
+        end
+    end
+
+    subgraph External_Notification [Alerting Layer]
+        H((Telegram Bot API))
+    end
+
+    %% Connections
+    B -->|SSH Deployment / Setup| EC2_Instance
+    G -->|Probes HTTP Status / Uptime| D
+    E -->|Scrapes Metrics via /probe| G
+    F -->|Queries TSDB Metrics| E
+    F -->|Triggers Alert via Webhook| H
+
+    %% Apply Classes
+    class AWS_Cloud,EC2_Instance aws;
+    class D,E,F,G,C docker;
+    class B git;
+    class H telegram;
 
 This ecosystem is split into three main layers:
 1. Infrastructure as Code (IaC): Automated AWS infrastructure provisioning using CloudFormation templates.
