@@ -6,7 +6,7 @@ A production-ready DevOps and Cloud Engineering project featuring automated clou
 
 ## 🏗️ System Architecture
 
-`mermaid
+```mermaid
 graph TD
     %% Styling
     classDef aws fill:#FF9900,stroke:#333,stroke-width:2px,color:black;
@@ -46,6 +46,7 @@ graph TD
     class D,E,F,G,C docker;
     class B git;
     class H telegram;
+    ```
 
 This ecosystem is split into three main layers:
 1. Infrastructure as Code (IaC): Automated AWS infrastructure provisioning using CloudFormation templates.
